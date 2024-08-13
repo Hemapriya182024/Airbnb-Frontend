@@ -14,7 +14,7 @@ const LoginPage = () => {
   async function handleLoginSubmit(e) {
     e.preventDefault();
     try {
-      const { data } = await axios.post('http://localhost:5000/login', { email, password });
+      const { data } = await axios.post('http://localhost:5000/login', { email, password },{withCredentials:true});
       setUser(data);
       setRedirect(true);
     } catch (error) {

@@ -26,7 +26,7 @@ const Header = () => {
             className="w-8 h-8 sm:w-12 sm:h-5 md:w-16 md:h-16"
             alt="Airbnb Logo"
           />
-          <span className="font-semibold text-2xl sm:text-3xl text-primary tracking-wide dark:text-white">
+          <span className="font-semibold text-2xl sm:text-3xl text-primary tracking-wide dark:text-white hidden sm:block">
             airbnb
           </span>
         </Link>
@@ -93,22 +93,23 @@ const Header = () => {
               <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
             </svg>
             <div className='bg-gray-500 text-white rounded-full p-1 border border-gray-500'>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                className="w-5 h-5 sm:w-6 sm:h-6"
-              >
-                <path fillRule="evenodd" d="M9.528 1.718a.75.75 0 0 1 .162.819A8.97 8.97 0 0 0 9 6a9 9 0 0 0 9 9 8.97 8.97 0 0 0 3.463-.69.75.75 0 0 1 .981.98 10.503 10.503 0 0 1-9.694 6.46c-5.799 0-10.5-4.7-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 0 1 .818.162Z" clipRule="evenodd" />
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
+                <path fillRule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clipRule="evenodd" />
               </svg>
+
             </div>
+            {!!user && (
+              <div className='text-sm sm:text-base dark:text-white'>
+                {user.name}
+              </div>
+            )}
           </Link>
         </div>
-        
+       
       </header>
       <HeaderCenter />
-    
     </div>
+  
   );
 };
 

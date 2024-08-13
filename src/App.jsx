@@ -4,6 +4,8 @@ import IndexPage from './Pages/IndexPage';
 import LoginPage from './Pages/LoginPage';
 import LayOut from './LayOut';
 import RegisterPage from './Pages/RegisterPage';
+import axios from 'axios';
+
 import { UserContextProvider } from './UseContext';
 import AccountPage from './Pages/AccountPage';
 import PlacesFormPage from './Pages/PlacesFormPage';
@@ -12,7 +14,8 @@ import { useState } from 'react';
 import PlacePage from './Pages/PlacePage';
 import Footer from './Pages/Footer'
 import BookingsPage from './Pages/BookingsPage';
-import BookingPage from './Pages/BookingPage';
+import BookingPage  from './Pages/BookingPage';
+
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -26,6 +29,9 @@ function App() {
     }
   };
 
+
+  axios.defaults.withCredentials=true;
+   
   return (
     <div className={`bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition duration-300`}>
       

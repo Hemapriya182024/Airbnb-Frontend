@@ -5,35 +5,68 @@ import Image from "../Image.jsx";
 
 export default function IndexPage() {
   const [places, setPlaces] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/places').then(response => {
-      setPlaces(response.data);
-    });
+    axios.get('http://localhost:5000/places')
+      .then(response => {
+        setPlaces(response.data);
+        setLoading(false);
+      })
+      .catch(err => {
+        setError('Failed to connect to the backend. Please try again later.');
+        setLoading(false);
+      });
   }, []);
 
+  if (loading) {
+    return <div className="text-center text-xl p-6">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="text-center text-xl text-red-500 p-6">{error}</div>;
+  }
+
   return (
-    <div className="mt-8 grid gap-6 grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
-      {places.length > 0 && places.map(place => (
-        <Link to={'/place/' + place._id} key={place._id} className="group block bg-white rounded-lg shadow-lg overflow-hidden">
-          <div className="relative w-full h-60">
-            {place.photos?.[0] && (
-              <Image
-                className="absolute inset-0 w-full h-full object-cover"
-                src={place.photos[0]}
-                alt={place.title}
-              />
-            )}
-          </div>
-          <div className="p-4">
-            <h2 className="font-bold text-lg mb-1 group-hover:text-blue-600">{place.address}</h2>
-            <h3 className="text-sm text-gray-600 mb-2">{place.title}</h3>
-            <div className="mt-1">
-              <span className="font-bold text-xl">${place.price}</span> <span className="text-sm text-gray-500">per night</span>
-            </div>
-          </div>
-        </Link>
-      ))}
+    <div className={`bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition duration-300`}>
+      {places.length > 0 ? (
+        <div className="mt-8 grid gap-6 grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
+          {places.map(place => (
+            <Link 
+              to={'/place/' + place._id} 
+              key={place._id} 
+              className="group block bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105"
+            >
+              <div className="relative w-full h-60">
+                {place.photos?.[0] && (
+                  <Image
+                    className="absolute inset-0 w-full h-full object-cover"
+                    src={place.photos[0]}
+                    alt={place.title}
+                  />
+                )}
+              </div>
+              <div className="p-4">
+                <h2 className="font-semibold text-lg mb-1 group-hover:text-blue-600">{place.address}</h2>
+                <h3 className="text-md text-gray-700 dark:text-gray-300 mb-2 truncate">{place.title}</h3>
+                <div className="mt-1">
+                  <span className="font-bold text-xl text-gray-900 dark:text-gray-100">${place.price}</span> 
+                  <span className="text-sm text-gray-500 dark:text-gray-400"> per night</span>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      ) : (
+        <div className="text-center p-6">
+          <h2 className="text-2xl font-bold mb-4">Welcome to Airbnb!</h2>
+          <p className="text-lg">
+            Discover amazing places to stay, from cozy homes to luxurious apartments. 
+            Whether you're planning a weekend getaway or a long vacation, Airbnb has something for everyone.
+          </p>
+        </div>
+      )}
     </div>
   );
 }

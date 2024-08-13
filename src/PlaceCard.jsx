@@ -7,7 +7,7 @@ const PlaceCard = ({ title, image, address, price }) => {
       <div className="p-4">
         <h3 className="text-xl font-semibold">{title}</h3>
         <p className="text-gray-600 text-sm mt-1">{address}</p>
-        <p className="text-lg font-bold mt-2">${price} per night</p>
+        <p className="text-lg font-bold mt-2">${price}</p>
       </div>
     </div>
   );

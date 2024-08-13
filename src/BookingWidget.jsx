@@ -47,7 +47,6 @@ export default function BookingWidget({ place }) {
         checkIn, checkOut, numberOfGuests, name, phone,
         place: place._id,
         price: numberOfNights * place.price,
-        user: user._id
       });
       const bookingId = response.data._id;
       setRedirect(`/account/bookings/${bookingId}`);

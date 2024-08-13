@@ -4,6 +4,7 @@ import axios from "axios";
 import AddressLink from "../AddressLink";
 import PlaceGallery from "../PlaceGallery";
 import BookingDates from "../BookingDate";
+import AccountNavigation from "../AccountNavigation"
 
 export default function BookingPage() {
   const {id} = useParams();
@@ -24,7 +25,9 @@ export default function BookingPage() {
   }
 
   return (
+    
     <div className="my-8">
+      <AccountNavigation />
       <h1 className="text-3xl">{booking.place.title}</h1>
       <AddressLink className="my-2 block">{booking.place.address}</AddressLink>
       <div className="bg-gray-200 p-6 my-6 rounded-2xl flex items-center justify-between">
