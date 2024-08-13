@@ -1,6 +1,4 @@
-Here’s a README template for your Airbnb capstone project:
 
----
 
 # Airbnb Clone - MERN Stack Capstone Project
 
@@ -106,7 +104,7 @@ This project is a clone of the Airbnb website, created using the MERN stack. It 
 ## Screenshots
 
 ### Home Page
-![Home Page](https://github.com/Hemapriya182024/Airbnb-Frontend/raw/main/Screenshots/homepage.png)
+![Home Page](/Screenshots/homepage.png)
 
 ### Property Listing
 ![Property Listing](https://github.com/Hemapriya182024/Airbnb-Frontend/raw/main/Screenshots/property-listing.png)
@@ -178,6 +176,3 @@ This project is licensed under the MIT License.
 - **GitHub**: [Hemapriya182024](https://github.com/Hemapriya182024)
 - **LinkedIn**: [Hemapriya K](https://www.linkedin.com/in/hemapriya-k-4536a730b/)
 
----
-
-This README should provide a comprehensive overview of your Airbnb clone project and guide users on how to set it up, use it, and contribute to it.
