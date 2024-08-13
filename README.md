@@ -2,7 +2,7 @@
 
 # Airbnb Clone - MERN Stack Capstone Project
 
-This project is a clone of the Airbnb website, created using the MERN stack. It includes essential features such as property listings, user profiles, a search with filters, a booking system, a secure payment gateway, reviews and ratings, and host and calendar management for availability.
+This project is a clone of the Airbnb website, created using the MERN stack. The primary focus of this project is user management (registration and login), booking functionality, and hotel management by owners.
 
 ## Table of Contents
 
@@ -18,22 +18,16 @@ This project is a clone of the Airbnb website, created using the MERN stack. It 
 
 ## Features
 
-- **Property Listings**: Users can browse through a list of available properties.
-- **User Profiles**: Users can create and manage their profiles.
-- **Search with Filters**: Users can search for properties using various filters like location, price range, and amenities.
-- **Booking System**: Users can book properties for specific dates.
-- **Secure Payment Gateway**: Integration with a payment gateway for secure transactions.
-- **Reviews and Ratings**: Users can leave reviews and ratings for properties.
-- **Host Management**: Hosts can manage their properties, including availability and pricing.
-- **Calendar Management**: Hosts can manage the availability of their properties using a calendar.
+- **User Registration & Login**: Users can register and log in to the platform.
+- **Hotel Management by Owners**: Property owners can upload and manage their hotel details, including availability, pricing, and images.
+- **Booking System**: Users can book hotels for specific dates and manage their bookings.
 
 ## Tech Stack
 
-- **Frontend**: React, Tailwind CSS, Material UI
+- **Frontend**: React, Tailwind CSS
 - **Backend**: Node.js, Express.js
 - **Database**: MongoDB
 - **Authentication**: JWT
-- **Storage**: AWS S3 for image storage
 - **Deployment**: Netlify (Frontend), Render (Backend)
 
 ## Installation
@@ -63,7 +57,7 @@ This project is a clone of the Airbnb website, created using the MERN stack. It 
    ```plaintext
    PORT=5000
    MONGO_URI=your_mongodb_connection_string
-   
+   JWT_SECRET=your_jwt_secret
    ```
 
 4. Start the backend server:
@@ -100,8 +94,6 @@ This project is a clone of the Airbnb website, created using the MERN stack. It 
 
 ## Screenshots
 
-## Screenshots
-
 ### Home Page
 ![Home Page](/Screenshots/homepage.png)
 
@@ -111,15 +103,14 @@ This project is a clone of the Airbnb website, created using the MERN stack. It 
 ### Register Page
 ![Register Page](/Screenshots/registerpage.png)
 
+### Hotel Management
+![Hotel Management](/Screenshots/hotelmanagement.png)
+
 ### Booking Page
 ![Booking Page](/Screenshots/BookingPage.png)
 
 ### Darkmode
 ![Darkmode support](/Screenshots/Darkmode.png)
-
-### Booking details
-![Search with Filters](/Screenshots/BookingDetails.png)
-
 
 ## Live Backend
 
