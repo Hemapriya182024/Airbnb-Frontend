@@ -11,7 +11,6 @@ This project is a clone of the Airbnb website, created using the MERN stack. It 
 - [Installation](#installation)
 - [Usage](#usage)
 - [Screenshots](#screenshots)
-- [Project Structure](#project-structure)
 - [API Documentation](#api-documentation)
 - [Contributing](#contributing)
 - [License](#license)
@@ -125,23 +124,6 @@ This project is a clone of the Airbnb website, created using the MERN stack. It 
 ## Live Backend
 
 You can check out the live backend of this project at [Airbnb Backend on Render](https://airbnb-backend-tm1o.onrender.com/).
-
-
-## Project Structure
-
-### Frontend
-
-```
-src/
-│
-├── components/       # Reusable components
-├── pages/            # Different pages of the application
-├── redux/            # Redux setup for state management
-├── App.js            # Main application component
-└── index.js          # Entry point
-```
-
-
 
 ## API Documentation
 
