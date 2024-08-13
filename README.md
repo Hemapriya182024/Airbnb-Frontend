@@ -106,23 +106,21 @@ This project is a clone of the Airbnb website, created using the MERN stack. It 
 ### Home Page
 ![Home Page](/Screenshots/homepage.png)
 
-### Property Listing
-![Property Listing](https://github.com/Hemapriya182024/Airbnb-Frontend/raw/main/Screenshots/property-listing.png)
+### Login Page
+![Login Page](/Screenshots/loginpage.png)
+
+### Register Page
+![Register Page](/Screenshots/registerpage.png)
 
 ### Booking Page
-![Booking Page](https://github.com/Hemapriya182024/Airbnb-Frontend/raw/main/Screenshots/booking-page.png)
+![Booking Page](/Screenshots/BookingPage.png)
 
-### User Profile
-![User Profile](https://github.com/Hemapriya182024/Airbnb-Frontend/raw/main/Screenshots/user-profile.png)
+### Darkmode
+![Darkmode support](/Screenshots/Darkmode.png)
 
-### Host Dashboard
-![Host Dashboard](https://github.com/Hemapriya182024/Airbnb-Frontend/raw/main/Screenshots/host-dashboard.png)
+### Booking details
+![Search with Filters](/Screenshots/BookingDetails.png)
 
-### Search with Filters
-![Search with Filters](https://github.com/Hemapriya182024/Airbnb-Frontend/raw/main/Screenshots/search-filters.png)
-
-### Calendar Management
-![Calendar Management](https://github.com/Hemapriya182024/Airbnb-Frontend/raw/main/Screenshots/calendar-management.png)
 
 ## Live Backend
 
@@ -143,21 +141,11 @@ src/
 └── index.js          # Entry point
 ```
 
-### Backend
 
-```
-src/
-│
-├── controllers/      # Functions to handle requests
-├── models/           # MongoDB models
-├── routes/           # API routes
-├── middlewares/      # Custom middlewares
-└── server.js         # Server setup
-```
 
 ## API Documentation
 
-(Add API endpoints and their descriptions here.)
+https://airbnb-backend-tm1o.onrender.com/
 
 ## Contributing
 
