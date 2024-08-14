@@ -103,8 +103,8 @@ This project is a clone of the Airbnb website, created using the MERN stack. The
 ### Register Page
 ![Register Page](/Screenshots/registerpage.png)
 
-### Hotel Management
-![Hotel Management](/Screenshots/hotelmanagement.png)
+### Booking Details
+![Booking Details](/Screenshots/BookingDetails.png)
 
 ### Booking Page
 ![Booking Page](/Screenshots/BookingPage.png)
