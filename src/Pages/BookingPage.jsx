@@ -11,7 +11,7 @@ export default function BookingPage() {
   const [booking,setBooking] = useState(null);
   useEffect(() => {
     if (id) {
-      axios.get('http://localhost:5000/bookings').then(response => {
+      axios.get('https://airbnb-backend-tm1o.onrender.com/bookings').then(response => {
         const foundBooking = response.data.find(({_id}) => _id === id);
         if (foundBooking) {
           setBooking(foundBooking);

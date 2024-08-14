@@ -10,7 +10,7 @@ import AccountNavigation from '../AccountNavigation'
 export default function BookingsPage() {
   const [bookings,setBookings] = useState([]);
   useEffect(() => {
-    axios.get('http://localhost:5000/bookings').then(response => {
+    axios.get('https://airbnb-backend-tm1o.onrender.com/bookings').then(response => {
       setBookings(response.data);
     });
   }, []);
