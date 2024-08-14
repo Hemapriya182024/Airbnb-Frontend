@@ -22,6 +22,8 @@ const RegisterPage = () => {
         name,
         email,
         password
+      }, {
+        withCredentials: true
       });
       setSuccess('User registered successfully!');
       setTimeout(() => navigate('/login'), 2000); // Redirect to login page after 2 seconds
