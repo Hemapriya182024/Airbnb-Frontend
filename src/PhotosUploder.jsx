@@ -9,7 +9,7 @@ export default function PhotosUploader({ addedPhotos, onChange }) {
   const addPhotoByLink = async (ev) => {
     ev.preventDefault();
     try {
-      const { data: filename } = await axios.post('http://localhost:5000/upload-by-link', { link: photoLink });
+      const { data: filename } = await axios.post('http://localhost:8000//upload-by-link', { link: photoLink });
       console.log('Photo added by link:', filename); // Log filename
       onChange(prev => [...prev, filename]);
       setPhotoLink('');
@@ -26,7 +26,7 @@ export default function PhotosUploader({ addedPhotos, onChange }) {
       data.append('photos', file);
     }
     try {
-      const { data: filenames } = await axios.post('http://localhost:5000/upload', data);
+      const { data: filenames } = await axios.post('http://localhost:8000//upload', data);
       onChange(prev => [...prev, ...filenames]);
     } catch (error) {
       console.error('Error uploading photo:', error);

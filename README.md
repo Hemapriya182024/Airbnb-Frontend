@@ -90,7 +90,7 @@ This project is a clone of the Airbnb website, created using the MERN stack. The
 ## Usage
 
 - Visit the frontend on `http://localhost:3000`
-- The backend server runs on `http://localhost:5000`
+- The backend server runs on `http://localhost:5000/`
 
 ## Screenshots
 
@@ -114,11 +114,11 @@ This project is a clone of the Airbnb website, created using the MERN stack. The
 
 ## Live Backend
 
-You can check out the live backend of this project at [Airbnb Backend on Render](http://localhost:5000//).
+You can check out the live backend of this project at [Airbnb Backend on Render](http://localhost:8000///).
 
 ## API Documentation
 
-http://localhost:5000//
+http://localhost:8000///
 
 ## Contributing
 
