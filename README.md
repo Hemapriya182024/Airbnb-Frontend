@@ -114,11 +114,16 @@ This project is a clone of the Airbnb website, created using the MERN stack. The
 
 ## Live Backend
 
-You can check out the live backend of this project at [Airbnb Backend on Render](http://localhost:8000///).
+You can check out the live backend of this project at [Airbnb Backend on Render](https://airbnb-backend-tm1o.onrender.com).
+
+
+## Live Frontend
+
+You can check out the live Frontend of this project at [Airbnb Frontend on netlify](https://mern-capstone.netlify.app/).
 
 ## API Documentation
 
-http://localhost:8000///
+http://localhost:5000/
 
 ## Contributing
 
