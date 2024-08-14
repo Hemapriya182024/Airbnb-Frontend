@@ -18,7 +18,7 @@ const RegisterPage = () => {
     setLoading(true); // Set loading state to true
   
     try {
-      const userDoc = await axios.post('https://airbnb-backend-tm1o.onrender.com/register', {
+      const userDoc = await axios.post('http://localhost:5000/register', {
         name,
         email,
         password

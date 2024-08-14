@@ -43,7 +43,7 @@ export default function BookingWidget({ place }) {
 
     try {
       const numberOfNights = calculateNumberOfNights();
-      const response = await axios.post('https://airbnb-backend-tm1o.onrender.com/bookings', {
+      const response = await axios.post('http://localhost:5000/bookings', {
         checkIn, checkOut, numberOfGuests, name, phone,
         place: place._id,
         price: numberOfNights * place.price,

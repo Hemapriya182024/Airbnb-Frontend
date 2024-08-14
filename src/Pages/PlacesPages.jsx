@@ -8,7 +8,7 @@ export default function PlacesPage() {
   const [places, setPlaces] = useState([]);
 
   useEffect(() => {
-    axios.get('https://airbnb-backend-tm1o.onrender.com/places').then(({ data }) => {
+    axios.get('http://localhost:5000/places').then(({ data }) => {
       setPlaces(data);
     });
   }, []);

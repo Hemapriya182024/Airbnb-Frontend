@@ -9,7 +9,7 @@ export default function IndexPage() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get('https://airbnb-backend-tm1o.onrender.com/places')
+    axios.get('http://localhost:5000/places')
       .then(response => {
         setPlaces(response.data);
         setLoading(false);
