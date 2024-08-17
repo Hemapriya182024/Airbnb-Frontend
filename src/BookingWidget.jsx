@@ -42,12 +42,16 @@ export default function BookingWidget({ place }) {
     }
 
     try {
+      const token = localStorage.getItem('token');
       const numberOfNights = calculateNumberOfNights();
-      const response = await axios.post('https://airbnb-backend-tm1o.onrender.com/bookings', {
+      const response = await axios.post('https://airbnb-backend-tm1o.onrender.com/api/bookings', {
         checkIn, checkOut, numberOfGuests, name, phone,
         place: place._id,
         price: numberOfNights * place.price,
-      });
+      },{
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },});
       const bookingId = response.data._id;
       setRedirect(`/account/bookings/${bookingId}`);
     } catch (error) {
@@ -63,11 +67,11 @@ export default function BookingWidget({ place }) {
   const numberOfNights = calculateNumberOfNights();
 
   return (
-    <div className="bg-white shadow p-4 rounded-2xl">
-      <div className="text-2xl text-center">
+    <div className="bg-white dark:bg-gray-800 shadow p-4 rounded-2xl">
+      <div className="text-2xl text-center text-gray-900 dark:text-gray-100">
         Price: ₹{formatPrice(place.price)} / per night
       </div>
-      <div className="border rounded-2xl mt-4">
+      <div className="border dark:border-gray-700 rounded-2xl mt-4">
         <div className="flex">
           <InputField
             label="Check in:"
@@ -92,7 +96,7 @@ export default function BookingWidget({ place }) {
           onChange={handleInputChange}
         />
         {numberOfNights > 0 && (
-          <div className="py-3 px-4 border-t">
+          <div className="py-3 px-4 border-t dark:border-gray-700">
             <InputField
               label="Your full name:"
               type="text"
@@ -110,7 +114,10 @@ export default function BookingWidget({ place }) {
           </div>
         )}
       </div>
-      <button onClick={bookThisPlace} className="primary mt-4">
+      <button
+        onClick={bookThisPlace}
+        className="primary mt-4 bg-blue-500 dark:bg-blue-700 text-white dark:text-gray-100 px-4 py-2 rounded"
+      >
         Book this place
         {numberOfNights > 0 && (
           <span> ₹{formatPrice(numberOfNights * place.price)}</span>
@@ -123,13 +130,13 @@ export default function BookingWidget({ place }) {
 function InputField({ label, type, name, value, onChange }) {
   return (
     <div className="py-3 px-4">
-      <label>{label}</label>
+      <label className="text-gray-900 dark:text-gray-100">{label}</label>
       <input
         type={type}
         name={name}
         value={value}
         onChange={onChange}
-        className="w-full border rounded px-2 py-1 mt-1"
+        className="w-full border dark:border-gray-700 rounded px-2 py-1 mt-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
       />
     </div>
   );

@@ -9,7 +9,7 @@ export default function PhotosUploader({ addedPhotos, onChange }) {
   const addPhotoByLink = async (ev) => {
     ev.preventDefault();
     try {
-      const { data: filename } = await axios.post('https://airbnb-backend-tm1o.onrender.com/upload-by-link', { link: photoLink });
+      const { data: filename } = await axios.post('https://airbnb-backend-tm1o.onrender.com/api/upload-by-link', { link: photoLink });
       console.log('Photo added by link:', filename); // Log filename
       onChange(prev => [...prev, filename]);
       setPhotoLink('');
@@ -26,7 +26,7 @@ export default function PhotosUploader({ addedPhotos, onChange }) {
       data.append('photos', file);
     }
     try {
-      const { data: filenames } = await axios.post('https://airbnb-backend-tm1o.onrender.com/upload', data);
+      const { data: filenames } = await axios.post('https://airbnb-backend-tm1o.onrender.com/api/upload', data);
       onChange(prev => [...prev, ...filenames]);
     } catch (error) {
       console.error('Error uploading photo:', error);

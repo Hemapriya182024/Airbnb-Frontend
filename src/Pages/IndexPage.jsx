@@ -3,13 +3,14 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Image from "../Image.jsx";
 
+
 export default function IndexPage() {
   const [places, setPlaces] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get('https://airbnb-backend-tm1o.onrender.com/places'  ,{
+    axios.get('https://airbnb-backend-tm1o.onrender.com/api/places'  ,{
       withCredentials: true
     })
       .then(response => {

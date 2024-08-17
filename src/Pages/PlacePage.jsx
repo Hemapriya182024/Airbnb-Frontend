@@ -13,7 +13,7 @@ export default function PlacePage() {
     if (!id) {
       return;
     }
-    axios.get(`https://airbnb-backend-tm1o.onrender.com/places/${id}`).then((response) => {
+    axios.get(`https://airbnb-backend-tm1o.onrender.com/api/places/${id}`).then((response) => {
       setPlace(response.data);
     });
   }, [id]);

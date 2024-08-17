@@ -15,7 +15,9 @@ export default function ProfilePage() {
 
  
   if (!ready) {
-    return 'Loading...';
+  
+        
+                 <Link to={'/'}  className="bg-primary rounded-full p-4" >Logout</Link>
   }
 
   if (ready && !user && !redirect) {

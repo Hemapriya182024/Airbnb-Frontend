@@ -14,7 +14,7 @@ const LoginPage = () => {
   async function handleLoginSubmit(e) {
     e.preventDefault();
     try {
-      const { data } = await axios.post('https://airbnb-backend-tm1o.onrender.com/login', { email, password }, {
+      const { data } = await axios.post('https://airbnb-backend-tm1o.onrender.com/api/auth/login', { email, password }, {
         withCredentials: true
       });
       setUser(data);
