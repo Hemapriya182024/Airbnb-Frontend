@@ -3,13 +3,14 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Image from "../Image.jsx";
 
+
 export default function IndexPage() {
   const [places, setPlaces] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get('https://airbnb-backend-tm1o.onrender.com/api/places', {
+    axios.get('https://airbnb-backend-tm1o.onrender.com/api/places'  ,{
       withCredentials: true
     })
       .then(response => {
@@ -23,11 +24,7 @@ export default function IndexPage() {
   }, []);
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <img src="/preloader.gif" alt="Loading..." className="w-16 h-16" /> {/* Adjust the size as needed */}
-      </div>
-    );
+    return <div className="text-center text-xl p-6">Loading...</div>;
   }
 
   if (error) {
@@ -39,9 +36,9 @@ export default function IndexPage() {
       {places.length > 0 ? (
         <div className="mt-8 grid gap-6 grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
           {places.map(place => (
-            <Link
-              to={'/place/' + place._id}
-              key={place._id}
+            <Link 
+              to={'/place/' + place._id} 
+              key={place._id} 
               className="group block bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105"
             >
               <div className="relative w-full h-60">
@@ -57,7 +54,7 @@ export default function IndexPage() {
                 <h2 className="font-semibold text-lg mb-1 group-hover:text-blue-600">{place.address}</h2>
                 <h3 className="text-md text-gray-700 dark:text-gray-300 mb-2 truncate">{place.title}</h3>
                 <div className="mt-1">
-                  <span className="font-bold text-xl text-gray-900 dark:text-gray-100">${place.price}</span>
+                  <span className="font-bold text-xl text-gray-900 dark:text-gray-100">${place.price}</span> 
                   <span className="text-sm text-gray-500 dark:text-gray-400"> per night</span>
                 </div>
               </div>
@@ -68,7 +65,7 @@ export default function IndexPage() {
         <div className="text-center p-6">
           <h2 className="text-2xl font-bold mb-4">Welcome to Airbnb!</h2>
           <p className="text-lg">
-            Discover amazing places to stay, from cozy homes to luxurious apartments.
+            Discover amazing places to stay, from cozy homes to luxurious apartments. 
             Whether you're planning a weekend getaway or a long vacation, Airbnb has something for everyone.
           </p>
         </div>
