@@ -84,14 +84,6 @@ export default function PlacesFormPage() {
   return (
     <div>
       <AccountNavigation />
-      <div className="form-container relative">
-        <div className="overlay">
-          <p className="overlay-text">Development Only - For Airbnb Admins or Owners</p>
-        </div>
-
-       
-      </div>
-
-    </div>
+     </div>
   );
 }
