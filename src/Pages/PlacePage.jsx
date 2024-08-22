@@ -8,16 +8,41 @@ import AddressLink from "../AddressLink";
 export default function PlacePage() {
   const { id } = useParams();
   const [place, setPlace] = useState(null);
+  const [loading, setLoading] = useState(true); // Loading state
+  const [error, setError] = useState(null); // Error state
 
   useEffect(() => {
     if (!id) {
       return;
     }
-    axios.get(`https://airbnb-backend-tm1o.onrender.com/api/places/${id}`).then((response) => {
-      setPlace(response.data);
-    });
+    axios
+      .get(`https://airbnb-backend-tm1o.onrender.com/api/places/${id}`)
+      .then((response) => {
+        setPlace(response.data);
+        setLoading(false); // Data loaded
+      })
+      .catch((err) => {
+        console.error(err); // Log error for debugging
+        setError("Failed to load the place details. Please try again later.");
+        setLoading(false); // Loading finished, but with error
+      });
   }, [id]);
 
+  // Show preloader while loading
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <img src="/pulse.gif" alt="Loading..." className="w-16 h-16" />
+      </div>
+    );
+  }
+
+  // Show error message if an error occurs
+  if (error) {
+    return <div className="text-center text-xl text-red-500 p-6">{error}</div>;
+  }
+
+  // If place data is not available, return an empty string (or handle this case as needed)
   if (!place) return "";
 
   return (
