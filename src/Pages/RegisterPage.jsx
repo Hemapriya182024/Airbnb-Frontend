@@ -8,15 +8,38 @@ const RegisterPage = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
-  const [loading, setLoading] = useState(false); // New state for loading
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  // Function to validate email format
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
 
   async function registerUser(e) {
     e.preventDefault();
-    setError(null); // Reset error state
-    setSuccess(null); // Reset success state
-    setLoading(true); // Set loading state to true
-  
+    setError(null);
+    setSuccess(null);
+    setLoading(true);
+
+    // Basic validation
+    if (name.length < 3) {
+      setError('Name must be at least 3 characters long.');
+      setLoading(false);
+      return;
+    }
+    if (!validateEmail(email)) {
+      setError('Please enter a valid email address.');
+      setLoading(false);
+      return;
+    }
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters long.');
+      setLoading(false);
+      return;
+    }
+
     try {
       const userDoc = await axios.post('https://airbnb-backend-tm1o.onrender.com/api/auth/register', {
         name,
@@ -26,12 +49,12 @@ const RegisterPage = () => {
         withCredentials: true
       });
       setSuccess('User registered successfully!');
-      setTimeout(() => navigate('/login'), 2000); // Redirect to login page after 2 seconds
+      setTimeout(() => navigate('/login'), 2000);
     } catch (error) {
       console.error('There was an error!', error);
       setError('Registration failed. Please try again.');
     } finally {
-      setLoading(false); // Reset loading state
+      setLoading(false);
     }
   }
 
@@ -51,7 +74,6 @@ const RegisterPage = () => {
             onChange={e => setName(e.target.value)}
             required
           />
-
           <input
             type="email"
             placeholder='user@gmail.com'
@@ -69,7 +91,7 @@ const RegisterPage = () => {
             required
           />
           <button type="submit" className='w-full bg-primary text-white p-2 rounded-md'>
-            {loading ? 'Registering...' : 'Register'} {/* Loading indicator */}
+            {loading ? 'Registering...' : 'Register'}
           </button>
           {success && <p className='text-green-500 text-center mt-4'>{success}</p>}
           {error && <p className='text-red-500 text-center mt-4'>{error}</p>}
@@ -83,3 +105,4 @@ const RegisterPage = () => {
 }
 
 export default RegisterPage;
+ 
