@@ -6,6 +6,7 @@ import {differenceInCalendarDays, format} from "date-fns";
 import {Link} from "react-router-dom";
 import BookingDates from "../BookingDate";
 import AccountNavigation from '../AccountNavigation'
+import { UserContext } from "../UseContext";
 
 export default function BookingsPage() {
   const [bookings,setBookings] = useState([]);
