@@ -27,8 +27,8 @@ export default function BookingsPage() {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
-      <img src="/pulse.gif" alt="Loading..." className="w-16 h-16" /> 
-    </div>
+        <img src="/pulse.gif" alt="Loading..." className="w-16 h-16" />
+      </div>
     );
   }
 

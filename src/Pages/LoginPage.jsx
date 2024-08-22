@@ -54,6 +54,7 @@ const LoginPage = () => {
           withCredentials: true
         }
       );
+      localStorage.setItem('isAuthenticated', 'true');
       setUser(data);
       setRedirect(true);
     } catch (error) {

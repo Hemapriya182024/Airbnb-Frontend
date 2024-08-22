@@ -41,6 +41,13 @@ export default function BookingWidget({ place }) {
       return;
     }
 
+    const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+
+    if (!isAuthenticated) {
+      alert("You must be logged in to book a place.");
+      return;
+    }
+
     try {
       const token = localStorage.getItem('token');
       const numberOfNights = calculateNumberOfNights();
