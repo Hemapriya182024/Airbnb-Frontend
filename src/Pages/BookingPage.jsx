@@ -5,14 +5,13 @@ import AddressLink from "../AddressLink";
 import PlaceGallery from "../PlaceGallery";
 import BookingDates from "../BookingDate";
 import AccountNavigation from "../AccountNavigation";
-import { UserContext } from "../UseContext";
 
 export default function BookingPage() {
   const { id } = useParams();
   const [booking, setBooking] = useState(null);
-  const { user } = useContext(UserContext);  
+
   useEffect(() => {
-    if (id && user) {
+    if (id) {
       axios.get('https://airbnb-backend-tm1o.onrender.com/api/bookings',{
         withCredentials: true
       }).then((response) => {
@@ -22,15 +21,12 @@ export default function BookingPage() {
         }
       });
     }
-  }, [id,user]);
-  if (!user) {
-    // If the user is not logged in, redirect to the login page
-    return <Navigate to="/login" />;
-  }
+  }, [id]);
 
   if (!booking) {
     return "";
   }
+
   return (
     <div className="my-8">
       <AccountNavigation />
