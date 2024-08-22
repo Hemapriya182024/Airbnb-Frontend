@@ -9,22 +9,46 @@ import AccountNavigation from "../AccountNavigation";
 export default function BookingPage() {
   const { id } = useParams();
   const [booking, setBooking] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (id) {
-      axios.get('https://airbnb-backend-tm1o.onrender.com/api/bookings',{
+      axios.get('https://airbnb-backend-tm1o.onrender.com/api/bookings', {
         withCredentials: true
-      }).then((response) => {
-        const foundBooking = response.data.find(({ _id }) => _id === id);
-        if (foundBooking) {
-          setBooking(foundBooking);
-        }
-      });
+      })
+        .then((response) => {
+          const foundBooking = response.data.find(({ _id }) => _id === id);
+          if (foundBooking) {
+            setBooking(foundBooking);
+          } else {
+            setError('Booking not found.');
+          }
+          setLoading(false); // Set loading to false after data fetch
+        })
+        .catch(() => {
+          setError('Failed to fetch booking. Please try again later.');
+          setLoading(false); // Set loading to false if there's an error
+        });
+    } else {
+      setLoading(false); // Set loading to false if no ID is provided
     }
   }, [id]);
 
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <img src="/pulse.gif" alt="Loading..." className="w-16 h-16" /> {/* Ensure path is correct */}
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div className="text-center text-xl text-red-500 p-6">{error}</div>;
+  }
+
   if (!booking) {
-    return "";
+    return <div className="text-center text-xl text-gray-700 p-6">No booking found.</div>;
   }
 
   return (
