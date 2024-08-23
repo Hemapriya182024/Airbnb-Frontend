@@ -4,6 +4,8 @@ import PlaceImg from "../PlaceImage";
 import BookingDates from "../BookingDate";
 import AccountNavigation from '../AccountNavigation';
 
+import { Link } from "react-router-dom";
+
 
 export default function BookingsPage() {
   const [bookings, setBookings] = useState([]);
