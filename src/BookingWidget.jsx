@@ -12,6 +12,7 @@ export default function BookingWidget({ place }) {
     phone: ''
   });
   const [redirect, setRedirect] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(true); // Track login state
 
   const { checkIn, checkOut, numberOfGuests, name, phone } = formData;
 
@@ -29,7 +30,18 @@ export default function BookingWidget({ place }) {
       }
     };
 
+    const checkAuthentication = () => {
+      const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+      if (!isAuthenticated) {
+        setIsLoggedIn(false);
+        alert("You are not logged in. Please log in to book a place.");
+        // Optionally redirect to login page
+        // setRedirect('/login');
+      }
+    };
+
     window.addEventListener('storage', handleLogout);
+    checkAuthentication(); // Check authentication on mount
 
     return () => window.removeEventListener('storage', handleLogout);
   }, []);
@@ -88,9 +100,7 @@ export default function BookingWidget({ place }) {
   }, [checkIn, checkOut, name, phone, numberOfGuests]);
 
   const bookThisPlace = useCallback(async () => {
-    const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
-
-    if (!isAuthenticated) {
+    if (!isLoggedIn) {
       alert("You are logged out. Please log in again to book a place.");
       return;
     }
@@ -117,7 +127,7 @@ export default function BookingWidget({ place }) {
       console.error("Booking failed", error);
       alert("Booking failed. Please try again.");
     }
-  }, [validateForm, calculateNumberOfNights, checkIn, checkOut, numberOfGuests, name, phone, place]);
+  }, [validateForm, calculateNumberOfNights, checkIn, checkOut, numberOfGuests, name, phone, place, isLoggedIn]);
 
   if (redirect) {
     return <Navigate to={redirect} />;
