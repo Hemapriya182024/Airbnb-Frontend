@@ -36,7 +36,7 @@ export default function ProfilePage() {
        <img 
          src="https://media4.giphy.com/media/bcKmIWkUMCjVm/200.webp?cid=790b7611p0iq51zufgd2jxiz21rt7n9knowy9i9r2uli3w2p&ep=v1_gifs_search&rid=200.webp&ct=g" 
          alt="Welcome Animation" 
-         className="w-50 h-50 mx-auto mb-4 rounded-full"
+         className="w-50 h-55 mx-auto mb-4 rounded-full"
        />
        <p className="text-lg font-semibold text-gray-700">
          Logged in as <span className="text-blue-600">{user.name}</span>
