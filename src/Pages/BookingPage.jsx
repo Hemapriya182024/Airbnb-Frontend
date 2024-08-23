@@ -24,21 +24,21 @@ export default function BookingPage() {
           } else {
             setError('Booking not found.');
           }
-          setLoading(false); // Set loading to false after data fetch
+          setLoading(false);
         })
         .catch(() => {
           setError('Failed to fetch booking. Please try again later.');
-          setLoading(false); // Set loading to false if there's an error
+          setLoading(false);
         });
     } else {
-      setLoading(false); // Set loading to false if no ID is provided
+      setLoading(false);
     }
   }, [id]);
 
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <img src="/pulse.gif" alt="Loading..." className="w-16 h-16" /> {/* Ensure path is correct */}
+        <img src="/pulse.gif" alt="Loading..." className="w-16 h-16" /> 
       </div>
     );
   }
