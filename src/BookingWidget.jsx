@@ -12,17 +12,13 @@ export default function BookingWidget({ place }) {
     phone: ''
   });
   const [redirect, setRedirect] = useState('');
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const { checkIn, checkOut, numberOfGuests, name, phone } = formData;
 
   useEffect(() => {
-    const checkAuthStatus = () => {
-      const authStatus = localStorage.getItem('isAuthenticated') === 'true';
-      setIsAuthenticated(authStatus);
-
-      // If user is not authenticated, clear form data
-      if (!authStatus) {
+    const handleLogout = () => {
+      const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+      if (!isAuthenticated) {
         setFormData({
           checkIn: '',
           checkOut: '',
@@ -33,11 +29,9 @@ export default function BookingWidget({ place }) {
       }
     };
 
-    checkAuthStatus(); // Check authentication status on mount
+    window.addEventListener('storage', handleLogout);
 
-    window.addEventListener('storage', checkAuthStatus);
-
-    return () => window.removeEventListener('storage', checkAuthStatus);
+    return () => window.removeEventListener('storage', handleLogout);
   }, []);
 
   const calculateNumberOfNights = useCallback(() => {
@@ -94,6 +88,8 @@ export default function BookingWidget({ place }) {
   }, [checkIn, checkOut, name, phone, numberOfGuests]);
 
   const bookThisPlace = useCallback(async () => {
+    const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+
     if (!isAuthenticated) {
       alert("You are logged out. Please log in again to book a place.");
       return;
@@ -121,17 +117,13 @@ export default function BookingWidget({ place }) {
       console.error("Booking failed", error);
       alert("Booking failed. Please try again.");
     }
-  }, [isAuthenticated, validateForm, calculateNumberOfNights, checkIn, checkOut, numberOfGuests, name, phone, place]);
+  }, [validateForm, calculateNumberOfNights, checkIn, checkOut, numberOfGuests, name, phone, place]);
 
   if (redirect) {
     return <Navigate to={redirect} />;
   }
 
   const numberOfNights = calculateNumberOfNights();
-
-  if (!isAuthenticated) {
-    return <Navigate to="/login" />; // Redirect to login page if not authenticated
-  }
 
   return (
     <div className="bg-white dark:bg-gray-800 shadow p-4 rounded-2xl">
