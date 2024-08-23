@@ -15,7 +15,7 @@ export default function ProfilePage() {
 
 
   async function logout() {
-    await axios.post('/logout');
+    await axios.post('https://airbnb-backend-tm1o.onrender.com/api/auth/logout');
     setRedirect('/');
     setUser(null);
   }
