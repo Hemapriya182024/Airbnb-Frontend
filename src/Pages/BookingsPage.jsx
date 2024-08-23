@@ -65,10 +65,22 @@ export default function BookingsPage() {
             </Link>
           ))
         ) : (
-          <div className="text-center p-6">
-            <h2 className="text-2xl font-bold mb-4">No bookings found</h2>
-            <p className="text-lg">You have no bookings at the moment.</p>
+          <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+            <div className="p-6 text-center bg-white rounded-lg shadow-lg">
+              <div className="mb-4">
+                <video
+                  src="https://i.gifer.com/C2K.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  className="w-40 h-40 mx-auto"
+                />
+              </div>
+              <h2 className="text-2xl font-bold mb-2 text-gray-800">No bookings found</h2>
+              <p className="text-lg text-gray-600">You have no bookings at the moment.</p>
+            </div>
           </div>
+
         )}
       </div>
     </div>
