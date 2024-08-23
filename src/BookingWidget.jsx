@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { differenceInCalendarDays } from "date-fns";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
@@ -14,6 +14,25 @@ export default function BookingWidget({ place }) {
   const [redirect, setRedirect] = useState('');
 
   const { checkIn, checkOut, numberOfGuests, name, phone } = formData;
+
+  useEffect(() => {
+    const handleLogout = () => {
+      const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+      if (!isAuthenticated) {
+        setFormData({
+          checkIn: '',
+          checkOut: '',
+          numberOfGuests: 1,
+          name: '',
+          phone: ''
+        });
+      }
+    };
+
+    window.addEventListener('storage', handleLogout);
+
+    return () => window.removeEventListener('storage', handleLogout);
+  }, []);
 
   const calculateNumberOfNights = useCallback(() => {
     if (checkIn && checkOut) {
@@ -31,20 +50,52 @@ export default function BookingWidget({ place }) {
     return new Intl.NumberFormat('en-IN').format(price);
   }, []);
 
+  const validatePhoneNumber = (phone) => {
+    const phoneRegex = /^[6-9]\d{9}$/; // Simple validation for Indian phone numbers
+    return phoneRegex.test(phone);
+  };
+
   const validateForm = useCallback(() => {
-    return checkIn && checkOut && name && phone && numberOfGuests > 0;
+    if (!checkIn) {
+      alert("Please select a check-in date.");
+      return false;
+    }
+    if (!checkOut) {
+      alert("Please select a check-out date.");
+      return false;
+    }
+    if (new Date(checkIn) > new Date(checkOut)) {
+      alert("Check-in date cannot be later than the check-out date.");
+      return false;
+    }
+    if (!name) {
+      alert("Please enter your full name.");
+      return false;
+    }
+    if (!phone) {
+      alert("Please enter your phone number.");
+      return false;
+    }
+    if (!validatePhoneNumber(phone)) {
+      alert("Please enter a valid phone number.");
+      return false;
+    }
+    if (numberOfGuests <= 0) {
+      alert("Please enter a valid number of guests.");
+      return false;
+    }
+    return true;
   }, [checkIn, checkOut, name, phone, numberOfGuests]);
 
   const bookThisPlace = useCallback(async () => {
-    if (!validateForm()) {
-      alert("Please fill in all required fields.");
-      return;
-    }
-
     const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
 
     if (!isAuthenticated) {
-      alert("You must be logged in to book a place.");
+      alert("You are logged out. Please log in again to book a place.");
+      return;
+    }
+
+    if (!validateForm()) {
       return;
     }
 
@@ -55,10 +106,11 @@ export default function BookingWidget({ place }) {
         checkIn, checkOut, numberOfGuests, name, phone,
         place: place._id,
         price: numberOfNights * place.price,
-      },{
+      }, {
         headers: {
           Authorization: `Bearer ${token}`,
-        },});
+        }
+      });
       const bookingId = response.data._id;
       setRedirect(`/account/bookings/${bookingId}`);
     } catch (error) {
@@ -86,6 +138,7 @@ export default function BookingWidget({ place }) {
             name="checkIn"
             value={checkIn}
             onChange={handleInputChange}
+            required
           />
           <InputField
             label="Check out:"
@@ -93,6 +146,7 @@ export default function BookingWidget({ place }) {
             name="checkOut"
             value={checkOut}
             onChange={handleInputChange}
+            required
           />
         </div>
         <InputField
@@ -101,6 +155,7 @@ export default function BookingWidget({ place }) {
           name="numberOfGuests"
           value={numberOfGuests}
           onChange={handleInputChange}
+          required
         />
         {numberOfNights > 0 && (
           <div className="py-3 px-4 border-t dark:border-gray-700">
@@ -110,6 +165,7 @@ export default function BookingWidget({ place }) {
               name="name"
               value={name}
               onChange={handleInputChange}
+              required
             />
             <InputField
               label="Phone number:"
@@ -117,6 +173,7 @@ export default function BookingWidget({ place }) {
               name="phone"
               value={phone}
               onChange={handleInputChange}
+              required
             />
           </div>
         )}
@@ -134,7 +191,7 @@ export default function BookingWidget({ place }) {
   );
 }
 
-function InputField({ label, type, name, value, onChange }) {
+function InputField({ label, type, name, value, onChange, required }) {
   return (
     <div className="py-3 px-4">
       <label className="text-gray-900 dark:text-gray-100">{label}</label>
@@ -143,6 +200,7 @@ function InputField({ label, type, name, value, onChange }) {
         name={name}
         value={value}
         onChange={onChange}
+        required={required}
         className="w-full border dark:border-gray-700 rounded px-2 py-1 mt-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
       />
     </div>
