@@ -3,6 +3,7 @@ import AccountNavigation from "../AccountNavigation";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import PlaceImg from "../PlaceImage";
+import Modal from "../Modal";
 
 
 export default function PlacesPage() {
