@@ -202,7 +202,7 @@ export default function BookingWidget({ place }) {
         />
       )}
     </div>
-  );
+  );    
 }   
 
 function InputField({ label, type, name, value, onChange, required }) {
