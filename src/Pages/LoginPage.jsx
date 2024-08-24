@@ -41,7 +41,6 @@ const LoginPage = () => {
   async function handleLoginSubmit(e) {
     e.preventDefault();
 
-    // Validate form
     if (!validateForm()) {
       return;
     }

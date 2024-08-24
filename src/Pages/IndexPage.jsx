@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import Image from "../Image.jsx";
-
-
+import { UserContext } from "../UseContext";
 
 export default function IndexPage() {
+  const { user } = useContext(UserContext);
   const [places, setPlaces] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -23,6 +23,10 @@ export default function IndexPage() {
         setLoading(false);
       });
   }, []);
+
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
 
   if (loading) {
     return (
