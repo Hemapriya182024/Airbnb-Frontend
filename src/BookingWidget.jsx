@@ -2,7 +2,6 @@ import { useState, useCallback, useEffect } from "react";
 import { differenceInCalendarDays } from "date-fns";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
-import LoginModal from "./LoginModal";
 
 export default function BookingWidget({ place }) {
   const [formData, setFormData] = useState({
@@ -13,8 +12,7 @@ export default function BookingWidget({ place }) {
     phone: ''
   });
   const [redirect, setRedirect] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isAuthenticated') === 'true');
-  const [showLoginModal, setShowLoginModal] = useState(false); // State for login modal
+  const [isLoggedIn, setIsLoggedIn] = useState(true); // Track login state
 
   const { checkIn, checkOut, numberOfGuests, name, phone } = formData;
 
@@ -22,7 +20,6 @@ export default function BookingWidget({ place }) {
     const handleLogout = () => {
       const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
       if (!isAuthenticated) {
-        setIsLoggedIn(false);
         setFormData({
           checkIn: '',
           checkOut: '',
@@ -33,7 +30,18 @@ export default function BookingWidget({ place }) {
       }
     };
 
+    const checkAuthentication = () => {
+      const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+      if (!isAuthenticated) {
+        setIsLoggedIn(false);
+        alert("You are not logged in. Please log in to book a place.");
+        // Optionally redirect to login page
+        // setRedirect('/login');
+      }
+    };
+
     window.addEventListener('storage', handleLogout);
+    checkAuthentication(); // Check authentication on mount
 
     return () => window.removeEventListener('storage', handleLogout);
   }, []);
@@ -93,7 +101,7 @@ export default function BookingWidget({ place }) {
 
   const bookThisPlace = useCallback(async () => {
     if (!isLoggedIn) {
-      setShowLoginModal(true); // Show the login modal if not logged in
+      alert("You are logged out. Please log in again to book a place.");
       return;
     }
 
@@ -189,18 +197,6 @@ export default function BookingWidget({ place }) {
           <span> ₹{formatPrice(numberOfNights * place.price)}</span>
         )}
       </button>
-
-      {/* Login Modal */}
-      {showLoginModal && (
-        <LoginModal
-          closeModal={() => setShowLoginModal(false)}
-          onSuccess={() => {
-            setIsLoggedIn(true);
-            setShowLoginModal(false);
-            bookThisPlace(); // Continue booking after successful login
-          }}
-        />
-      )}
     </div>
   );
 }
@@ -212,7 +208,6 @@ function InputField({ label, type, name, value, onChange, required }) {
       <input
         type={type}
         name={name}
-
         value={value}
         onChange={onChange}
         required={required}
