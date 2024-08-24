@@ -200,7 +200,7 @@ export default function BookingWidget({ place }) {
             bookThisPlace(); // Continue booking after successful login
           }}
         />
-      )}
+      )}            
     </div>
   );    
 }   
