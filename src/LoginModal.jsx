@@ -17,7 +17,7 @@ export default function LoginModal({ closeModal, onSuccess }) {
         { email, password },
         {
           withCredentials: true
-        }
+        }    
       );
       localStorage.setItem('isAuthenticated', 'true');
       setUser(data);
