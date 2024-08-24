@@ -14,7 +14,7 @@ export default function BookingWidget({ place }) {
   });
   const [redirect, setRedirect] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isAuthenticated') === 'true');
-  const [showLoginModal, setShowLoginModal] = useState(false); // State for login modal
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   const { checkIn, checkOut, numberOfGuests, name, phone } = formData;
 
