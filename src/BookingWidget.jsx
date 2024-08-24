@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from "react";
 import { differenceInCalendarDays } from "date-fns";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
-import LoginModal from "./LoginModal"; // Import the Login Modal component
+import LoginModal from "./LoginModal";
 
 export default function BookingWidget({ place }) {
   const [formData, setFormData] = useState({
@@ -212,7 +212,7 @@ function InputField({ label, type, name, value, onChange, required }) {
       <input
         type={type}
         name={name}
-        
+
         value={value}
         onChange={onChange}
         required={required}
