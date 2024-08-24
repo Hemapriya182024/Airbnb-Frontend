@@ -212,6 +212,7 @@ function InputField({ label, type, name, value, onChange, required }) {
       <input
         type={type}
         name={name}
+        
         value={value}
         onChange={onChange}
         required={required}
