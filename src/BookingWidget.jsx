@@ -11,40 +11,51 @@ export default function BookingWidget({ place }) {
     name: '',
     phone: ''
   });
+  const [loginData, setLoginData] = useState({
+    email: '',
+    password: ''
+  });
   const [redirect, setRedirect] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(true); // Track login state
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Initial login state as false
 
   const { checkIn, checkOut, numberOfGuests, name, phone } = formData;
+  const { email, password } = loginData;
 
   useEffect(() => {
-    const handleLogout = () => {
-      const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
-      if (!isAuthenticated) {
-        setFormData({
-          checkIn: '',
-          checkOut: '',
-          numberOfGuests: 1,
-          name: '',
-          phone: ''
-        });
-      }
-    };
-
     const checkAuthentication = () => {
       const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
-      if (!isAuthenticated) {
-        setIsLoggedIn(false);
-        alert("You are not logged in. Please log in to book a place.");
-        // Optionally redirect to login page
-        // setRedirect('/login');
-      }
+      setIsLoggedIn(isAuthenticated);
     };
 
-    window.addEventListener('storage', handleLogout);
     checkAuthentication(); // Check authentication on mount
-
-    return () => window.removeEventListener('storage', handleLogout);
   }, []);
+
+  const handleInputChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  }, []);
+
+  const handleLoginChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setLoginData((prevData) => ({ ...prevData, [name]: value }));
+  }, []);
+
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('https://your-api-url.com/api/login', {
+        email,
+        password,
+      });
+      const token = response.data.token;
+      localStorage.setItem('token', token);
+      localStorage.setItem('isAuthenticated', 'true');
+      setIsLoggedIn(true);
+    } catch (error) {
+      alert("Login failed. Please try again.");
+      console.error(error);
+    }
+  };
 
   const calculateNumberOfNights = useCallback(() => {
     if (checkIn && checkOut) {
@@ -52,15 +63,6 @@ export default function BookingWidget({ place }) {
     }
     return 0;
   }, [checkIn, checkOut]);
-
-  const handleInputChange = useCallback((e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-  }, []);
-
-  const formatPrice = useCallback((price) => {
-    return new Intl.NumberFormat('en-IN').format(price);
-  }, []);
 
   const validatePhoneNumber = (phone) => {
     const phoneRegex = /^[6-9]\d{9}$/; // Simple validation for Indian phone numbers
@@ -100,11 +102,6 @@ export default function BookingWidget({ place }) {
   }, [checkIn, checkOut, name, phone, numberOfGuests]);
 
   const bookThisPlace = useCallback(async () => {
-    if (!isLoggedIn) {
-      alert("You are logged out. Please log in again to book a place.");
-      return;
-    }
-
     if (!validateForm()) {
       return;
     }
@@ -127,7 +124,7 @@ export default function BookingWidget({ place }) {
       console.error("Booking failed", error);
       alert("Booking failed. Please try again.");
     }
-  }, [validateForm, calculateNumberOfNights, checkIn, checkOut, numberOfGuests, name, phone, place, isLoggedIn]);
+  }, [validateForm, calculateNumberOfNights, checkIn, checkOut, numberOfGuests, name, phone, place]);
 
   if (redirect) {
     return <Navigate to={redirect} />;
@@ -137,66 +134,98 @@ export default function BookingWidget({ place }) {
 
   return (
     <div className="bg-white dark:bg-gray-800 shadow p-4 rounded-2xl">
-      <div className="text-2xl text-center text-gray-900 dark:text-gray-100">
-        Price: ₹{formatPrice(place.price)} / per night
-      </div>
-      <div className="border dark:border-gray-700 rounded-2xl mt-4">
-        <div className="flex">
-          <InputField
-            label="Check in:"
-            type="date"
-            name="checkIn"
-            value={checkIn}
-            onChange={handleInputChange}
-            required
-          />
-          <InputField
-            label="Check out:"
-            type="date"
-            name="checkOut"
-            value={checkOut}
-            onChange={handleInputChange}
-            required
-          />
+      {!isLoggedIn ? (
+        <div>
+          <h2 className="text-2xl text-center text-gray-900 dark:text-gray-100">Login to Book</h2>
+          <form onSubmit={handleLoginSubmit}>
+            <InputField
+              label="Email:"
+              type="email"
+              name="email"
+              value={email}
+              onChange={handleLoginChange}
+              required
+            />
+            <InputField
+              label="Password:"
+              type="password"
+              name="password"
+              value={password}
+              onChange={handleLoginChange}
+              required
+            />
+            <button
+              type="submit"
+              className="primary mt-4 bg-blue-500 dark:bg-blue-700 text-white dark:text-gray-100 px-4 py-2 rounded"
+            >
+              Login
+            </button>
+          </form>
         </div>
-        <InputField
-          label="Number of guests:"
-          type="number"
-          name="numberOfGuests"
-          value={numberOfGuests}
-          onChange={handleInputChange}
-          required
-        />
-        {numberOfNights > 0 && (
-          <div className="py-3 px-4 border-t dark:border-gray-700">
-            <InputField
-              label="Your full name:"
-              type="text"
-              name="name"
-              value={name}
-              onChange={handleInputChange}
-              required
-            />
-            <InputField
-              label="Phone number:"
-              type="tel"
-              name="phone"
-              value={phone}
-              onChange={handleInputChange}
-              required
-            />
+      ) : (
+        <div>
+          <div className="text-2xl text-center text-gray-900 dark:text-gray-100">
+            Price: ₹{formatPrice(place.price)} / per night
           </div>
-        )}
-      </div>
-      <button
-        onClick={bookThisPlace}
-        className="primary mt-4 bg-blue-500 dark:bg-blue-700 text-white dark:text-gray-100 px-4 py-2 rounded"
-      >
-        Book this place
-        {numberOfNights > 0 && (
-          <span> ₹{formatPrice(numberOfNights * place.price)}</span>
-        )}
-      </button>
+          <div className="border dark:border-gray-700 rounded-2xl mt-4">
+            <div className="flex">
+              <InputField
+                label="Check in:"
+                type="date"
+                name="checkIn"
+                value={checkIn}
+                onChange={handleInputChange}
+                required
+              />
+              <InputField
+                label="Check out:"
+                type="date"
+                name="checkOut"
+                value={checkOut}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <InputField
+              label="Number of guests:"
+              type="number"
+              name="numberOfGuests"
+              value={numberOfGuests}
+              onChange={handleInputChange}
+              required
+            />
+            {numberOfNights > 0 && (
+              <div className="py-3 px-4 border-t dark:border-gray-700">
+                <InputField
+                  label="Your full name:"
+                  type="text"
+                  name="name"
+                  value={name}
+                  onChange={handleInputChange}
+                  required
+                />
+                <InputField
+                  label="Phone number:"
+                  type="tel"
+                  name="phone"
+                  value={phone}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+            )}
+          </div>
+          <button
+            onClick={bookThisPlace}
+            className="primary mt-4 bg-blue-500 dark:bg-blue-700 text-white dark:text-gray-100 px-4 py-2 rounded"
+          >
+            Book this place
+            {numberOfNights > 0 && (
+              <span> ₹{formatPrice(numberOfNights * place.price)}</span>
+            )}
+          </button>
+        </div>
+      )}
     </div>
   );
 }
