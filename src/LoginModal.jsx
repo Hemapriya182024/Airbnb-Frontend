@@ -9,7 +9,7 @@ export default function LoginModal({ closeModal, onSuccess }) {
   const { setUser } = useContext(UserContext);
 
   const handleLoginSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault();   
 
     try {
       const { data } = await axios.post(
