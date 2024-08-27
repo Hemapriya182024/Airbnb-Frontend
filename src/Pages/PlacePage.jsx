@@ -4,12 +4,16 @@ import axios from "axios";
 import BookingWidget from "../BookingWidget";
 import PlaceGallery from "../PlaceGallery";
 import AddressLink from "../AddressLink";
+import { UserContext } from "../UseContext";
+
+
 
 export default function PlacePage() {
   const { id } = useParams();
   const [place, setPlace] = useState(null);
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(null); // Error state
+  const { user, ready } = useContext(UserContext); // Get user and ready state from UserContext
 
   useEffect(() => {
     if (!id) {
@@ -45,6 +49,13 @@ export default function PlacePage() {
   // If place data is not available, return an empty string (or handle this case as needed)
   if (!place) return "";
 
+  // Function to handle booking
+  const handleBookingClick = () => {
+    if (!user) {
+      alert("Please log in to access the booking feature.");
+    }
+  };
+
   return (
     <div className="mt-4 bg-gray-100 dark:bg-gray-900 -mx-8 px-8 pt-8">
       <h1 className="text-3xl text-gray-900 dark:text-white">{place.title}</h1>
@@ -63,7 +74,17 @@ export default function PlacePage() {
           </p>
         </div>
         <div>
-          <BookingWidget place={place} />
+          {/* Only allow booking if the user is logged in */}
+          {user ? (
+            <BookingWidget place={place} />
+          ) : (
+            <button
+              onClick={handleBookingClick}
+              className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
+            >
+              Book Now
+            </button>
+          )}
         </div>
       </div>
       <div className="bg-white dark:bg-gray-800 -mx-8 px-8 py-8 border-t dark:border-gray-700">
