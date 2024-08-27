@@ -13,6 +13,10 @@ export default function PlacePage() {
   const [error, setError] = useState(null); // Error state
   const { user, ready } = useContext(UserContext); // Get user and ready state from UserContext
 
+
+
+  
+
   useEffect(() => {
     if (!id) {
       return;
