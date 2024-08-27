@@ -7,7 +7,7 @@ import AddressLink from "../AddressLink";
 import { UserContext } from "../UserContext"; // Import UserContext
 
 export default function PlacePage() {
-  const { id } = useParams();
+  const { id } = useParams();   
   const [place, setPlace] = useState(null);
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(null); // Error state
