@@ -11,11 +11,11 @@ export default function PlacePage() {
   const [place, setPlace] = useState(null);
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(null); // Error state
-  const { user, ready } = useContext(UserContext); // Get user and ready state from UserContext
+  const { user, ready } = useContext(UserContext); 
 
 
 
-  
+
 
   useEffect(() => {
     if (!id) {
@@ -32,7 +32,7 @@ export default function PlacePage() {
         setError("Failed to load the place details. Please try again later.");
         setLoading(false); // Loading finished, but with error
       });
-  }, [id]);
+  }, [id]);     
 
   // Show preloader while loading
   if (loading) {
