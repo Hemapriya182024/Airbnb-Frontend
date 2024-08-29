@@ -4,7 +4,7 @@ import axios from "axios";
 import BookingWidget from "../BookingWidget";
 import PlaceGallery from "../PlaceGallery";
 import AddressLink from "../AddressLink";
-import { UserContext } from "../UserContext"; // Import UserContext
+import { UserContext } from "../UseContext"; // Import UserContext
 
 export default function PlacePage() {
   const { id } = useParams();   
