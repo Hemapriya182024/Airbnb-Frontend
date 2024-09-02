@@ -59,17 +59,17 @@ const RegisterPage = () => {
   }
 
   return (
-    <div className='flex justify-center m-8 grow flex items-center justify-around'>
-      <div className='max-w-md w-full p-6 border rounded-md shadow-md'>
+    <div className='flex justify-center m-8 grow flex items-center justify-around bg-gray-100 dark:bg-gray-900'>
+      <div className='max-w-md w-full p-6 border rounded-md shadow-md dark:border-gray-700 dark:bg-gray-800'>
         <div className='text-center mb-4'>
-          <h3 className='text-4xl mb-4'>Register</h3>
-          <h5 className='text-3xl'>Welcome to Airbnb</h5>
+          <h3 className='text-4xl mb-4 text-gray-900 dark:text-gray-100'>Register</h3>
+          <h5 className='text-3xl text-gray-800 dark:text-gray-300'>Welcome to Airbnb</h5>
         </div>
         <form className='w-full' onSubmit={registerUser}>
           <input
             type="text"
             placeholder='Enter your full name'
-            className='w-full p-2 mb-4 border border-gray-300 rounded-md'
+            className='w-full p-2 mb-4 border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200'
             value={name}
             onChange={e => setName(e.target.value)}
             required
@@ -77,7 +77,7 @@ const RegisterPage = () => {
           <input
             type="email"
             placeholder='user@gmail.com'
-            className='w-full p-2 mb-4 border border-gray-300 rounded-md'
+            className='w-full p-2 mb-4 border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200'
             value={email}
             onChange={e => setEmail(e.target.value)}
             required
@@ -85,7 +85,7 @@ const RegisterPage = () => {
           <input
             type='password'
             placeholder='***'
-            className='w-full p-2 mb-4 border border-gray-300 rounded-md'
+            className='w-full p-2 mb-4 border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200'
             value={password}
             onChange={e => setPassword(e.target.value)}
             required
@@ -95,7 +95,7 @@ const RegisterPage = () => {
           </button>
           {success && <p className='text-green-500 text-center mt-4'>{success}</p>}
           {error && <p className='text-red-500 text-center mt-4'>{error}</p>}
-          <div className='text-center py-2 text-gray-400'>
+          <div className='text-center py-2 text-gray-400 dark:text-gray-500'>
             Already a member? <Link className="underline text" to={'/login'}>Login</Link>
           </div>
         </form>
@@ -105,4 +105,3 @@ const RegisterPage = () => {
 }
 
 export default RegisterPage;
- 

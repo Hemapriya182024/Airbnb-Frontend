@@ -2,7 +2,7 @@
 
 # Airbnb Clone - MERN Stack Capstone Project
 
-This project is a clone of the Airbnb website, created using the MERN stack. The primary focus of this project is user management (registration and login), booking functionality, and hotel management by owners.
+This project is a clone of the Airbnb website, created using the MERN stack. The primary focus of this project is user management (registration and login), booking functionality.
 
 ## Table of Contents
 

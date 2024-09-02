@@ -18,32 +18,32 @@ export default function PhotosUploader({ addedPhotos, onChange }) {
     }
   };
 
-  // Upload photo from file input
-  const uploadPhoto = async (ev) => {
-    const files = ev.target.files;
-    const data = new FormData();
-    for (let file of files) {
-      data.append('photos', file);
-    }
-    try {
-      const { data: filenames } = await axios.post('https://airbnb-backend-tm1o.onrender.com/api/upload', data);
-      onChange(prev => [...prev, ...filenames]);
-    } catch (error) {
-      console.error('Error uploading photo:', error);
-    }
-  };
+  // // Upload photo from file input
+  // const uploadPhoto = async (ev) => {
+  //   const files = ev.target.files;
+  //   const data = new FormData();
+  //   for (let file of files) {
+  //     data.append('photos', file);
+  //   }
+  //   try {
+  //     const { data: filenames } = await axios.post('https://airbnb-backend-tm1o.onrender.com/api/upload', data);
+  //     onChange(prev => [...prev, ...filenames]);
+  //   } catch (error) {
+  //     console.error('Error uploading photo:', error);
+  //   }
+  // };
 
-  // Remove a photo
-  const removePhoto = (ev, filename) => {
-    ev.preventDefault();
-    onChange(addedPhotos.filter(photo => photo !== filename));
-  };
+  // // Remove a photo
+  // const removePhoto = (ev, filename) => {
+  //   ev.preventDefault();
+  //   onChange(addedPhotos.filter(photo => photo !== filename));
+  // };
 
-  // Select a photo as the main photo
-  const selectAsMainPhoto = (ev, filename) => {
-    ev.preventDefault();
-    onChange([filename, ...addedPhotos.filter(photo => photo !== filename)]);
-  };
+  // // Select a photo as the main photo
+  // const selectAsMainPhoto = (ev, filename) => {
+  //   ev.preventDefault();
+  //   onChange([filename, ...addedPhotos.filter(photo => photo !== filename)]);
+  // };
 
   return (
     <>

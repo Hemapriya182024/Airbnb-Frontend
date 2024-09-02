@@ -6,9 +6,9 @@ export default function PlaceGallery({ place }) {
 
   if (showAllPhotos) {
     return (
-      <div className="absolute inset-0 bg-black text-white min-h-screen flex flex-col items-center">
-        <div className="bg-black p-8 grid gap-4">
-          <div className="flex justify-between items-center w-full">
+      <div className="fixed inset-0 bg-black text-white flex items-center justify-center z-50">
+        <div className="bg-black p-8 grid gap-4 w-[90vw] h-[90vh] overflow-auto rounded-2xl">
+          <div className="flex justify-between items-center mb-4">
             <h2 className="text-3xl">Photos of {place.title}</h2>
             <button
               onClick={() => setShowAllPhotos(false)}
@@ -29,10 +29,10 @@ export default function PlaceGallery({ place }) {
               Close photos
             </button>
           </div>
-          <div className="flex flex-wrap justify-center">
+          <div className="flex flex-wrap justify-center gap-4">
             {place?.photos?.length > 0 &&
               place.photos.map((photo, index) => (
-                <div key={index} className="p-2 max-w-2xl w-full">
+                <div key={index} className="p-2 max-w-full w-full flex-shrink-0">
                   <Image
                     className="w-full h-auto object-cover rounded-3xl"
                     src={photo}
