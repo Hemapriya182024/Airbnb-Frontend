@@ -11,8 +11,9 @@ export default function BookingsPage() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get('https://airbnb-backend-tm1o.onrender.com/api/bookings', {
-      withCredentials: true
+    const token = localStorage.getItem("token");
+    axios.get('https://airbnb-backend-tm1o.onrender.com/bookings', {
+      headers: { Authorization: `Bearer ${token}` } 
     })
       .then(response => {
         setBookings(response.data);
@@ -23,6 +24,19 @@ export default function BookingsPage() {
         setLoading(false);
       });
   }, []);
+
+  const handleCancelBooking = async (bookingId) => {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.delete(`https://airbnb-backend-tm1o.onrender.com/bookings/${bookingId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setBookings(bookings.filter(booking => booking._id !== bookingId));
+      alert('Booking canceled successfully!'); 
+    } catch (err) {
+      setError('Failed to cancel booking. Please try again later.');
+    }
+  };
 
   if (loading) {
     return (
@@ -42,9 +56,8 @@ export default function BookingsPage() {
       <div className="p-4">
         {bookings?.length > 0 ? (
           bookings.map(booking => (
-            <Link 
-              to={`/account/bookings/${booking._id}`} 
-              key={booking._id} 
+            <div
+              key={booking._id}
               className="flex gap-4 bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-md dark:shadow-lg mb-4"
             >
               <div className="w-48">
@@ -64,7 +77,15 @@ export default function BookingsPage() {
                   </div>
                 </div>
               </div>
-            </Link>
+              <button
+                onClick={() => handleCancelBooking(booking._id)}
+                className="flex items-center justify-center w-12 h-12 bg-red-600 text-white rounded-full hover:bg-red-700 focus:outline-none"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
           ))
         ) : (
           <div className="flex flex-col items-center justify-center h-screen bg-gray-100 dark:bg-gray-900">

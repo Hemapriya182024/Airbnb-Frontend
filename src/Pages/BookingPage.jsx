@@ -13,9 +13,10 @@ export default function BookingPage() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
     if (id) {
-      axios.get('https://airbnb-backend-tm1o.onrender.com/api/bookings', {
-        withCredentials: true
+      axios.get('https://airbnb-backend-tm1o.onrender.com/bookings', {
+        headers: { Authorization: `Bearer ${token}` },
       })
         .then((response) => {
           const foundBooking = response.data.find(({ _id }) => _id === id);

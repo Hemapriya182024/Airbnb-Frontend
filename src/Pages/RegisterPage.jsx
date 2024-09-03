@@ -41,7 +41,7 @@ const RegisterPage = () => {
     }
 
     try {
-      const userDoc = await axios.post('https://airbnb-backend-tm1o.onrender.com/api/auth/register', {
+      const userDoc = await axios.post('https://airbnb-backend-tm1o.onrender.com/register', {
         name,
         email,
         password

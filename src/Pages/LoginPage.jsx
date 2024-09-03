@@ -48,14 +48,12 @@ const LoginPage = () => {
 
     try {
       const { data } = await axios.post(
-        'https://airbnb-backend-tm1o.onrender.com/api/auth/login',
-        { email, password },
-        {
-          withCredentials: true
-        }
+        'https://airbnb-backend-tm1o.onrender.com/login',
+        { email, password }
+       
       );
-      localStorage.setItem('isAuthenticated', 'true');
-      setUser(data);
+      localStorage.setItem('token', data.token);
+      setUser(data.userDoc);
       setRedirect(true);
     } catch (error) {
       console.error('There was an error!', error);

@@ -1,7 +1,8 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useContext } from "react";
 import { differenceInCalendarDays } from "date-fns";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
+import { UserContext } from './UseContext';
 
 const BookingWidget = ({ place }) => {
   const [formData, setFormData] = useState({
@@ -12,13 +13,19 @@ const BookingWidget = ({ place }) => {
     phone: ''
   });
   const [redirect, setRedirect] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(true); // Consider updating this based on actual login status
+  const { user } = useContext(UserContext);
 
   const { checkIn, checkOut, numberOfGuests, name, phone } = formData;
   const today = new Date().toISOString().split('T')[0];
   const nextYearEnd = `${new Date().getFullYear() + 1}-12-31`;
 
- 
+  useEffect(() => {
+    if (user) {
+      setFormData(prevData => ({ ...prevData, name: user.name }));
+    }
+  }, [user]);
+
   const calculateNumberOfNights = useCallback(() => {
     return checkIn && checkOut ? differenceInCalendarDays(new Date(checkOut), new Date(checkIn)) : 0;
   }, [checkIn, checkOut]);
@@ -53,8 +60,12 @@ const BookingWidget = ({ place }) => {
     try {
       const token = localStorage.getItem('token');
       const numberOfNights = calculateNumberOfNights();
-      const response = await axios.post('https://airbnb-backend-tm1o.onrender.com/api/bookings', {
-        checkIn, checkOut, numberOfGuests, name, phone,
+      const response = await axios.post('https://airbnb-backend-tm1o.onrender.com/bookings', {
+        checkIn,
+        checkOut,
+        numberOfGuests,
+        name,
+        phone,
         place: place._id,
         price: numberOfNights * place.price,
       }, {
