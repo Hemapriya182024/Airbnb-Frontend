@@ -62,11 +62,11 @@ const LoginPage = () => {
   }
 
   if (redirect) {
-    return <Navigate to="/account/places" />;
+    return <Navigate to="/" />;
   }
 
   return (
-    <div className="flex justify-center m-8 grow items-center justify-around bg-gray-100 dark:bg-gray-900">
+    <div className="flex justify-center m-8 grow items-center bg-gray-100 dark:bg-gray-900">
       <div className="max-w-md w-full p-6 border rounded-md shadow-md dark:border-gray-700 dark:bg-gray-800">
         <div className="text-center mb-4">
           <h3 className="text-4xl mb-4 text-gray-900 dark:text-gray-100">Login or Sign up</h3>
